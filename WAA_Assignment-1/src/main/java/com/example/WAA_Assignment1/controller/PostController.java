@@ -14,8 +14,8 @@ public class PostController {
     @Autowired
     PostService postService;
     @GetMapping
-    public List<PostDto> getAllPosts(){
-        return postService.findAll();
+    public List<PostDto> getAllPosts(@RequestParam(value = "title", required = false) String title){
+        return (title == null) ? postService.findAll(): postService.findAllPostsWithTitle(title);
     }
 
     @GetMapping("/{id}")

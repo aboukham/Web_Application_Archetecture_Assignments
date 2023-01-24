@@ -1,6 +1,7 @@
 package com.example.WAA_Assignment1.service.Impl;
 
 import com.example.WAA_Assignment1.Dto.PostDto;
+import com.example.WAA_Assignment1.controller.PostController;
 import com.example.WAA_Assignment1.domain.Post;
 import com.example.WAA_Assignment1.domain.User;
 import com.example.WAA_Assignment1.repository.PostRepo;
@@ -14,10 +15,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    PostController postController;
     @Autowired
     ListAdapter<Post, PostDto> listAdapter;
     @Autowired
@@ -49,5 +54,18 @@ public class UserServiceImpl implements UserService {
         u.setId(id);
         userRepo.deleteById(id);
         userRepo.save(u);
+    }
+
+    @Override
+    public List<User> findAllUsersThatHaveMoreThanNPosts(int n) {
+        List<User>  list = findAll();
+        return list.stream().filter(u -> u.getPosts().size() > n)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> findUsersWithTitle(String title) {
+        return findAll().stream().filter(u -> {return u.getPosts().stream().filter(p -> p.getTitle().equals(title)).isParallel();})
+                .collect(Collectors.toList());
     }
 }

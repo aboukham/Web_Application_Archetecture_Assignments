@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PostRepo  extends CrudRepository<Post, Long> {
+    List<Post> findByTitle(String title);
     /*public List<Post> findAll();
     public Post findById(long id);
     public void save(Post post);

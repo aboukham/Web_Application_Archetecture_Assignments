@@ -49,4 +49,9 @@ public class PostServiceImpl implements PostService {
         postRepo.deleteById(id);
         postRepo.save(post);
     }
+
+    @Override
+    public List<PostDto> findAllPostsWithTitle(String title) {
+        return (List<PostDto>) listAdapter.mapToList(postRepo.findByTitle(title), new PostDto());
+    }
 }

@@ -11,4 +11,5 @@ public interface PostService {
     public void save(PostDto post);
     public void deleteById(long id);
     public void update(long id, PostDto p);
+    public List<PostDto> findAllPostsWithTitle(String title);
 }

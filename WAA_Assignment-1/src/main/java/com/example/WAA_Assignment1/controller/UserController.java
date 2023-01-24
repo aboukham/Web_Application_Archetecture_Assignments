@@ -22,9 +22,15 @@ public class UserController {
    @Autowired
     PostRepo    postRepo;
     @GetMapping
-    public List<User> getAllUsers(){
-        return userService.findAll();
+    public List<User> getAllUsers(@RequestParam(value = "numberOfPosts", required = false) Integer n, @RequestParam(value = "title", required = false) String title){
+        if (n != null)
+            return userService.findAllUsersThatHaveMoreThanNPosts(n);
+        else if (title != null)
+            return userService.findUsersWithTitle(title);
+        else
+            return userService.findAll();
     }
+
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable("id") long id){
@@ -45,5 +51,7 @@ public class UserController {
     public void update(@PathVariable("id") long id, @RequestBody User user){
         userService.update(id, user);
     }
+
+
 
 }
