@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(long id, User u) {
-        u.setId(id);
+        u.getUserId();
         userRepo.deleteById(id);
         userRepo.save(u);
     }

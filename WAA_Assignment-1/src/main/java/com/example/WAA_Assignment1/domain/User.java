@@ -15,10 +15,12 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue
-    private long id;
+    private long userId;
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private List<Post>  posts;
+    @ManyToMany(fetch = FetchType.EAGER)
+    List<Role> roles;
 }

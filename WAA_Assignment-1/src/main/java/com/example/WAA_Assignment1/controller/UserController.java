@@ -1,6 +1,7 @@
 package com.example.WAA_Assignment1.controller;
 
 import com.example.WAA_Assignment1.Dto.PostDto;
+import com.example.WAA_Assignment1.Integration.ExecutionTime;
 import com.example.WAA_Assignment1.domain.Post;
 import com.example.WAA_Assignment1.domain.User;
 import com.example.WAA_Assignment1.repository.PostRepo;
@@ -21,7 +22,8 @@ public class UserController {
     UserService userService;
    @Autowired
     PostRepo    postRepo;
-    @GetMapping
+    @ExecutionTime
+   @GetMapping
     public List<User> getAllUsers(@RequestParam(value = "numberOfPosts", required = false) Integer n, @RequestParam(value = "title", required = false) String title){
         if (n != null)
             return userService.findAllUsersThatHaveMoreThanNPosts(n);
